@@ -1,8 +1,16 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 我的个人网站
 
-## Getting Started
+这是一个使用 [Next.js](https://nextjs.org) 构建的我的个人网站。
 
-First, run the development server:
+## 技术栈
+
+*   **框架**: [Next.js](https://nextjs.org/)
+*   **字体**: [Geist](https://vercel.com/font)
+*   **部署**: [Vercel](https://vercel.com/)
+
+## 本地开发
+
+首先，运行开发服务器：
 
 ```bash
 npm run dev
@@ -14,23 +22,13 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+在浏览器中打开 [http://localhost:3000](http://localhost:3000) 查看结果。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+你可以通过修改 `app/page.tsx` 来编辑页面。当你编辑文件时，页面会自动更新。
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 了解更多
 
-## Learn More
+想了解更多关于 Next.js 的信息，请查看以下资源：
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Next.js 文档](https://nextjs.org/docs) - 了解 Next.js 的特性和 API。
+- [学习 Next.js](https://nextjs.org/learn) - 一个交互式的 Next.js 教程。
