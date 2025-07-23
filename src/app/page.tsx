@@ -7,7 +7,7 @@ import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const WordCloud = dynamic(() => import('./components/WordCloud').then(mod => mod.default), { ssr: false });
+const WordCloud = dynamic(() => import('./components/features/WordCloud').then(mod => mod.default), { ssr: false });
 
 // 作品集幻灯片组件
 const PortfolioSlideshow = () => {
