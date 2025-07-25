@@ -6,7 +6,6 @@ async function getBlogPosts() {
   const posts = await glob('./src/app/blog/posts/*.mdx')
   return Promise.all(
     posts.map(async (file) => {
-      const content = await fs.readFile(file, 'utf8')
       const slug = file.split('/').pop()?.replace('.mdx', '')
       // MDX文件会自动导出metadata
       const { metadata } = await import(`./posts/${slug}.mdx`)
