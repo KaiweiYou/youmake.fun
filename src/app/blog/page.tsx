@@ -1,5 +1,4 @@
 import { glob } from 'glob'
-import { promises as fs } from 'fs'
 
 // 获取所有博客文章的元数据
 async function getBlogPosts() {

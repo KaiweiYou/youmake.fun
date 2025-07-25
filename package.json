@@ -19,6 +19,7 @@
     "@types/mdx": "^2.0.13",
     "@types/three": "^0.177.0",
     "eslint-config-prettier": "^10.1.8",
+    "geist": "^1.4.2",
     "glob": "^11.0.3",
     "gray-matter": "^4.0.3",
     "gsap": "^3.13.0",
