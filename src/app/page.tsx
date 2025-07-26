@@ -158,7 +158,7 @@ export default function Home() {
           <div className="w-full md:w-1/2 flex flex-col items-center md:items-end text-center md:text-right">
             <div className="relative w-48 h-48 mb-6 md:mb-8">
               <Image
-                src="/photos/selfie3.jpeg"
+                src="/images/selfie.jpeg"
                 alt="avatar"
                 fill
                 className="rounded-full object-cover"
