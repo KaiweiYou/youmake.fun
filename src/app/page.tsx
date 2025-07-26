@@ -9,89 +9,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const WordCloud = dynamic(() => import('./components/features/WordCloud').then(mod => mod.default), { ssr: false });
 
-// 作品集幻灯片组件
-const PortfolioSlideshow = () => {
-  // 支持图片和视频的作品集
-  const items = [
-    { type: 'image', src: '/portfolio/1.jpg' },
-    { type: 'video', src: '/portfolio/2.mp4' },
-    { type: 'image', src: '/portfolio/3.jpg' },
-  ];
-  const [current, setCurrent] = useState(0);
-  const prev = () => setCurrent((current - 1 + items.length) % items.length);
-  const next = () => setCurrent((current + 1) % items.length);
-
-  return (
-    <div className="w-full flex flex-col items-center my-16">
-      <div className="relative w-full max-w-5xl">
-        <div className="h-[500px] flex items-center justify-center bg-gray-200 dark:bg-gray-700 rounded-2xl overflow-hidden shadow-2xl relative">
-          {/* 幻灯片内容 */}
-          {items.map((item, idx) => (
-            <div
-              key={idx}
-              className={`absolute inset-0 w-full h-full flex items-center justify-center transition-opacity duration-700 ease-in-out ${
-                idx === current ? 'opacity-100' : 'opacity-0'
-              }`}
-            >
-              {item.type === 'image' ? (
-                <Image
-                  src={item.src}
-                  alt={`作品${idx+1}`}
-                  fill
-                  className="object-contain"
-                  style={{ objectFit: 'contain' }}
-                  sizes="(max-width: 1200px) 100vw, 1200px"
-                  priority={idx === 0} // 优先加载第一张图
-                />
-              ) : (
-                <video
-                  src={item.src}
-                  controls
-                  className="object-contain w-full h-full"
-                  style={{ maxHeight: '100%', maxWidth: '100%', background: 'black' }}
-                />
-              )}
-            </div>
-          ))}
-        </div>
-        {/* 左右切换按钮，放在图片区域外面 */}
-        <button
-          onClick={prev}
-          className="hidden md:flex items-center justify-center absolute left-0 -translate-x-20 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 rounded-full p-3 opacity-50 hover:opacity-100 hover:scale-125 transition-all duration-300 z-20 shadow-lg"
-          style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}
-        >
-          <svg className="w-10 h-10 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
-        </button>
-        <button
-          onClick={next}
-          className="hidden md:flex items-center justify-center absolute right-0 translate-x-20 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 rounded-full p-3 opacity-50 hover:opacity-100 hover:scale-125 transition-all duration-300 z-20 shadow-lg"
-          style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}
-        >
-          <svg className="w-10 h-10 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
-        </button>
-        {/* 移动端按钮，依然在图片内侧 */}
-        <button
-          onClick={prev}
-          className="md:hidden absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 rounded-full p-3 opacity-50 hover:opacity-100 hover:scale-125 transition-all duration-300 z-20 shadow-lg"
-        >
-          <svg className="w-8 h-8 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
-        </button>
-        <button
-          onClick={next}
-          className="md:hidden absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 rounded-full p-3 opacity-50 hover:opacity-100 hover:scale-125 transition-all duration-300 z-20 shadow-lg"
-        >
-          <svg className="w-8 h-8 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
-        </button>
-        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 flex space-x-3">
-          {items.map((_, idx) => (
-            <span key={idx} className={`inline-block w-4 h-4 rounded-full ${idx === current ? 'bg-blue-500' : 'bg-gray-400 dark:bg-gray-600'} transition-all duration-300`}></span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
-
 export default function Home() {
   const mainRef = useRef<HTMLElement>(null);
   const lenisRef = useRef<Lenis | null>(null);
@@ -141,7 +58,6 @@ export default function Home() {
   }, []);
 
   return (
-    // We change from a vertical scroll to a horizontal one for this effect
     <main ref={mainRef} className="h-screen w-full flex flex-nowrap overflow-x-hidden bg-white dark:bg-gray-800">
       {/* --- Section 1: Introduction --- */}
       <section className="scroll-section h-screen w-screen flex-shrink-0 flex items-center justify-center pb-40">
@@ -186,11 +102,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* --- Section 2: Portfolio --- */}
-      <section className="scroll-section h-screen w-screen flex-shrink-0 flex items-center justify-center">
-        <PortfolioSlideshow />
       </section>
     </main>
   );
