@@ -37,6 +37,7 @@ const Navbar = () => {
                 window.dispatchEvent(new Event('start-audio'));
               }}
             >
+              <Image src="/images/icon.png" alt="logo" width={40} height={40} className="mr-2" />
               <span className="text-xl font-bold text-gray-900 dark:text-white">YouMakeFun</span>
             </Link>
           </div>
