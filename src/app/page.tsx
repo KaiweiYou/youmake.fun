@@ -11,11 +11,11 @@ const WordCloud = dynamic(() => import('./components/features/WordCloud').then(m
 
 // 作品集幻灯片组件
 const PortfolioSlideshow = () => {
-  // 支持图片和视频的作品集
+  // 支持图片和视频的作品集 - 使用现有图片作为占位符
   const items = [
-    { type: 'image', src: '/portfolio/1.jpg' },
-    { type: 'video', src: '/portfolio/2.mp4' },
-    { type: 'image', src: '/portfolio/3.jpg' },
+    { type: 'image', src: '/images/selfie.jpeg' },
+    { type: 'image', src: '/images/selfie2.jpeg' },
+    { type: 'image', src: '/images/selfie3.jpeg' },
   ];
   const [current, setCurrent] = useState(0);
   const prev = () => setCurrent((current - 1 + items.length) % items.length);
@@ -158,7 +158,7 @@ export default function Home() {
           <div className="w-full md:w-1/2 flex flex-col items-center md:items-end text-center md:text-right">
             <div className="relative w-48 h-48 mb-6 md:mb-8">
               <Image
-                src="/photos/selfie3.jpeg"
+                src="/images/selfie3.jpeg"
                 alt="avatar"
                 fill
                 className="rounded-full object-cover"

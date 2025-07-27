@@ -1,20 +1,19 @@
-import { glob } from 'glob'
 import Image from 'next/image'
+
+// 静态定义博客文章列表，避免动态导入问题
+const blogPosts = [
+  {
+    title: 'Hello World',
+    date: '2024-06-01',
+    slug: 'hello-world',
+    excerpt: '这是我的第一篇博客，用于测试内容和代码分离。',
+    coverImage: null
+  }
+]
 
 // 获取所有博客文章的元数据
 async function getBlogPosts() {
-  const posts = await glob('./src/app/blog/posts/*.mdx')
-  return Promise.all(
-    posts.map(async (file) => {
-      const slug = file.split('/').pop()?.replace('.mdx', '')
-      // MDX文件会自动导出metadata
-      const { metadata } = await import(`./posts/${slug}.mdx`)
-      return {
-        ...metadata,
-        slug,
-      }
-    })
-  )
+  return blogPosts
 }
 
 export default async function BlogPage() {
@@ -53,6 +52,11 @@ export default async function BlogPage() {
               <h2 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
                 {post.title}
               </h2>
+              {post.excerpt && (
+                <p className="text-gray-600 mb-4 line-clamp-3">
+                  {post.excerpt}
+                </p>
+              )}
               
               <a 
                 href={`/blog/posts/${post.slug}`}
