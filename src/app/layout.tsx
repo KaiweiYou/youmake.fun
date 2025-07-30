@@ -3,6 +3,7 @@ import { GeistMono } from 'geist/font/mono'
 import './globals.css'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
+import MainWrapper from './components/layout/MainWrapper'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -19,12 +20,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="zh-CN" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <body className="antialiased min-h-screen flex flex-col bg-gray-50">
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+      <body className="antialiased min-h-screen flex flex-col bg-white dark:bg-gray-800">
         <Navbar />
-        <main className="flex-grow pt-16">
+        <MainWrapper>
           {children}
-        </main>
+        </MainWrapper>
         <Footer />
       </body>
     </html>

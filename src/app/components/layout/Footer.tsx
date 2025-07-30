@@ -4,18 +4,46 @@ import React, { useEffect, useState } from 'react';
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [visible, setVisible] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setVisible(true);
+      const currentScrollY = window.scrollY;
+      const isHomePage = window.location.pathname === '/';
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const isNearBottom = currentScrollY + windowHeight >= documentHeight - 100;
+
+      if (isHomePage) {
+        // 在主页，根据滚动位置和方向控制显示/隐藏
+        if (currentScrollY < 50) {
+          // 接近顶部时隐藏
+          setVisible(false);
+        } else if (isNearBottom) {
+          // 接近底部时显示
+          setVisible(true);
+        } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          // 向下滚动且超过100px时隐藏
+          setVisible(false);
+        } else if (currentScrollY < lastScrollY && currentScrollY > 100) {
+          // 向上滚动且不在顶部时显示
+          setVisible(true);
+        }
       } else {
-        setVisible(false);
+        // 在其他页面，保持原有逻辑
+        if (currentScrollY > 100) {
+          setVisible(true);
+        } else {
+          setVisible(false);
+        }
       }
+
+      setLastScrollY(currentScrollY);
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   return (
     <footer
