@@ -104,13 +104,6 @@ export default function Home() {
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
-      infinite: false,
     });
     lenisRef.current = lenis;
 
@@ -126,7 +119,7 @@ export default function Home() {
     const sections = gsap.utils.toArray('.scroll-section');
     let isSnapping = false;
 
-    sections.forEach((section, index) => {
+    sections.forEach((section) => {
       ScrollTrigger.create({
         trigger: section as Element,
         start: "top 80%",
@@ -134,7 +127,7 @@ export default function Home() {
         onEnter: () => {
           if (!isSnapping) {
             isSnapping = true;
-            lenis.scrollTo(section as Element, {
+            lenis.scrollTo(section as HTMLElement, {
               offset: 0,
               duration: 1.2,
               easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -147,7 +140,7 @@ export default function Home() {
         onEnterBack: () => {
           if (!isSnapping) {
             isSnapping = true;
-            lenis.scrollTo(section as Element, {
+            lenis.scrollTo(section as HTMLElement, {
               offset: 0,
               duration: 1.2,
               easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),

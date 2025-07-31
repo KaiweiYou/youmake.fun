@@ -1,4 +1,4 @@
-import Image from 'next/image'
+
 
 // Demo code projects
 const codeProjects = [
@@ -221,7 +221,7 @@ export default function CodeCreations() {
         <p className="text-gray-600 mb-6">
           I believe in writing code that not only solves problems but also inspires creativity.
           My projects range from practical tools to experimental art pieces, always with an emphasis
-          on clean architecture, user experience, and pushing the boundaries of what's possible.
+          on clean architecture, user experience, and pushing the boundaries of what&apos;s possible.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="text-center">

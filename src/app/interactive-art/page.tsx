@@ -1,4 +1,4 @@
-import Image from 'next/image'
+
 
 // Demo interactive art projects
 const artProjects = [
@@ -147,7 +147,7 @@ export default function InteractiveArt() {
       <div className="text-center mt-16 p-8 bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl">
         <h3 className="text-2xl font-bold text-gray-900 mb-4">Want to Collaborate?</h3>
         <p className="text-gray-600 mb-6">
-          I'm always interested in exploring new forms of interactive art and creative technology.
+          I&apos;m always interested in exploring new forms of interactive art and creative technology.
         </p>
         <a
           href="/about-contact"

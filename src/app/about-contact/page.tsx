@@ -1,4 +1,4 @@
-import Image from 'next/image'
+
 
 export default function AboutContact() {
   const skills = [
@@ -44,7 +44,7 @@ export default function AboutContact() {
       {/* Page Header */}
       <div className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">About & Contact</h1>
-        <p className="text-lg text-gray-600 dark:text-gray-300">Get to know me and let's connect</p>
+        <p className="text-lg text-gray-600 dark:text-gray-300">Get to know me and let&apos;s connect</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -59,11 +59,11 @@ export default function AboutContact() {
                 </div>
               </div>
               <div className="flex-grow">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Hello, I'm Kaiwei YOU</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Hello, I&apos;m Kaiwei YOU</h2>
                 <p className="text-gray-600 mb-4">
-                  I'm a creative technologist, interactive artist, and musician who explores the intersection
+                  I&apos;m a creative technologist, interactive artist, and musician who explores the intersection
                   of art, technology, and human experience. My work spans from immersive digital installations
-                  to experimental music compositions, always seeking to push the boundaries of what's possible
+                  to experimental music compositions, always seeking to push the boundaries of what&apos;s possible
                   when creativity meets code.
                 </p>
                 <p className="text-gray-600 mb-4">
@@ -72,7 +72,7 @@ export default function AboutContact() {
                   wonder, provoke thought, and create meaningful connections between people.
                 </p>
                 <p className="text-gray-600">
-                  When I'm not coding or creating, you can find me exploring new music, experimenting with
+                  When I&apos;m not coding or creating, you can find me exploring new music, experimenting with
                   generative art, or diving deep into the latest developments in AI and machine learning.
                 </p>
               </div>
@@ -185,8 +185,8 @@ export default function AboutContact() {
               <span className="text-sm font-medium text-gray-700">Available for new projects</span>
             </div>
             <p className="text-sm text-gray-600 mb-4">
-              I'm currently accepting new collaborations and commissions.
-              Let's create something amazing together!
+              I&apos;m currently accepting new collaborations and commissions.
+              Let&apos;s create something amazing together!
             </p>
             <a
               href="mailto:hello@youmake.fun?subject=Project Collaboration"
