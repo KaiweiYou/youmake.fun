@@ -13,9 +13,9 @@ const WordCloud = dynamic(() => import('./components/features/WordCloud').then(m
 const PortfolioSlideshow = () => {
   // 支持图片和视频的作品集 - 使用现有图片作为占位符
   const items = [
-    { type: 'image', src: '/images/selfie.jpeg' },
-    { type: 'image', src: '/images/selfie2.jpeg' },
-    { type: 'image', src: '/images/selfie3.jpeg' },
+    { type: 'image', src: '/images/interactive_art.png' },
+    { type: 'image', src: '/images/music_visualization.png' },
+    { type: 'image', src: '/images/coding_art.png' },
   ];
   const [current, setCurrent] = useState(0);
   const prev = () => setCurrent((current - 1 + items.length) % items.length);
@@ -29,14 +29,13 @@ const PortfolioSlideshow = () => {
           {items.map((item, idx) => (
             <div
               key={idx}
-              className={`absolute inset-0 w-full h-full flex items-center justify-center transition-opacity duration-700 ease-in-out ${
-                idx === current ? 'opacity-100' : 'opacity-0'
-              }`}
+              className={`absolute inset-0 w-full h-full flex items-center justify-center transition-opacity duration-700 ease-in-out ${idx === current ? 'opacity-100' : 'opacity-0'
+                }`}
             >
               {item.type === 'image' ? (
                 <Image
                   src={item.src}
-                  alt={`作品${idx+1}`}
+                  alt={`作品${idx + 1}`}
                   fill
                   className="object-contain"
                   style={{ objectFit: 'contain' }}
@@ -180,7 +179,7 @@ export default function Home() {
           <div className="w-full md:w-1/2 flex flex-col items-center md:items-end text-center md:text-right">
             <div className="relative w-40 h-40 md:w-48 md:h-48 mb-6 md:mb-8">
               <Image
-                src="/images/selfie3.jpeg"
+                src="/images/profile.jpg"
                 alt="avatar"
                 fill
                 className="rounded-full object-cover"
