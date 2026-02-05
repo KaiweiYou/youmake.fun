@@ -1,84 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-
-// Demo music projects
-const musicProjects = [
-  {
-    title: 'Ambient Soundscapes',
-    date: '2024-03-20',
-    slug: 'ambient-soundscapes',
-    description: 'A collection of atmospheric ambient tracks created using field recordings and synthesized textures.',
-    coverImage: '/music/ambient-cover.jpg',
-    duration: '45:32',
-    genre: 'Ambient',
-    instruments: ['Field Recordings', 'Synthesizer', 'Digital Processing'],
-    audioFile: '/music/ambient-preview.mp3',
-    type: 'Album'
-  },
-  {
-    title: 'Algorithmic Compositions',
-    date: '2024-02-15',
-    slug: 'algorithmic-compositions',
-    description: 'Music generated through algorithmic processes and machine learning, exploring the boundaries of AI creativity.',
-    coverImage: '/music/algorithmic-cover.jpg',
-    duration: '28:45',
-    genre: 'Experimental',
-    instruments: ['AI Generation', 'Code', 'Digital Synthesis'],
-    audioFile: '/music/algorithmic-preview.mp3',
-    type: 'EP'
-  },
-  {
-    title: 'Interactive Piano Piece',
-    date: '2024-01-30',
-    slug: 'interactive-piano',
-    description: 'A piano composition that responds to audience interaction through motion sensors and real-time audio processing.',
-    coverImage: '/music/piano-cover.jpg',
-    duration: '12:18',
-    genre: 'Contemporary Classical',
-    instruments: ['Piano', 'Motion Sensors', 'Live Electronics'],
-    audioFile: '/music/piano-preview.mp3',
-    type: 'Single'
-  },
-  {
-    title: 'Binaural Beats Meditation',
-    date: '2023-12-10',
-    slug: 'binaural-meditation',
-    description: 'Therapeutic soundscapes using binaural beats and natural sounds for meditation and relaxation.',
-    coverImage: '/music/meditation-cover.jpg',
-    duration: '60:00',
-    genre: 'Meditation',
-    instruments: ['Binaural Synthesis', 'Nature Sounds', 'Drone'],
-    audioFile: '/music/meditation-preview.mp3',
-    type: 'Album'
-  },
-  {
-    title: 'Glitch Symphony',
-    date: '2023-11-25',
-    slug: 'glitch-symphony',
-    description: 'An orchestral piece that incorporates glitch aesthetics and digital artifacts as musical elements.',
-    coverImage: '/music/glitch-cover.jpg',
-    duration: '18:42',
-    genre: 'Glitch',
-    instruments: ['Orchestra Samples', 'Glitch Processing', 'Digital Artifacts'],
-    audioFile: '/music/glitch-preview.mp3',
-    type: 'Single'
-  },
-  {
-    title: 'Generative Soundscape',
-    date: '2023-10-08',
-    slug: 'generative-soundscape',
-    description: 'Ever-evolving soundscape that generates new musical patterns based on environmental data and user input.',
-    coverImage: '/music/generative-cover.jpg',
-    duration: '∞',
-    genre: 'Generative',
-    instruments: ['Environmental Data', 'Generative Algorithms', 'Real-time Synthesis'],
-    audioFile: '/music/generative-preview.mp3',
-    type: 'Installation'
-  }
-]
+import Image from 'next/image'
+import { getProjectsByCategory, MusicProject } from '@/data/projects'
 
 export default function Music() {
+  const musicProjects = getProjectsByCategory('music') as MusicProject[];
   const [currentlyPlaying, setCurrentlyPlaying] = useState<string | null>(null)
 
   const handlePlayPause = (slug: string) => {
@@ -105,38 +32,37 @@ export default function Music() {
             className="bg-white dark:bg-gray-700 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
           >
             {/* Album Cover */}
-            <div className="relative h-48 w-full bg-gradient-to-br from-indigo-400 to-purple-500">
-              {/* Placeholder gradient background since images don't exist yet */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-white text-center">
-                  <div className="text-2xl mb-2">🎵</div>
-                  <div className="text-sm opacity-80">Album Cover</div>
-                </div>
-              </div>
+            <div className="relative h-48 w-full bg-gray-200 dark:bg-gray-800 group">
+              <Image
+                src={project.coverImage}
+                alt={project.title}
+                fill
+                className="object-cover transition-all duration-500 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
               {/* Type Badge */}
-              <div className="absolute top-3 right-3">
-                <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                  project.type === 'Album' ? 'bg-green-100 text-green-800' :
-                  project.type === 'EP' ? 'bg-blue-100 text-blue-800' :
-                  project.type === 'Single' ? 'bg-yellow-100 text-yellow-800' :
-                  'bg-purple-100 text-purple-800'
-                }`}>
+              <div className="absolute top-3 right-3 z-10">
+                <span className={`px-2 py-1 text-xs font-medium rounded-full shadow-sm ${project.type === 'Album' ? 'bg-green-100 text-green-800' :
+                    project.type === 'EP' ? 'bg-blue-100 text-blue-800' :
+                      project.type === 'Single' ? 'bg-yellow-100 text-yellow-800' :
+                        'bg-purple-100 text-purple-800'
+                  }`}>
                   {project.type}
                 </span>
               </div>
               {/* Play Button Overlay */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-30">
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 z-20">
                 <button
                   onClick={() => handlePlayPause(project.slug)}
-                  className="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center hover:bg-opacity-100 transition-all duration-200"
+                  className="w-14 h-14 bg-white/90 rounded-full flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-200 shadow-lg"
                 >
                   {currentlyPlaying === project.slug ? (
-                    <svg className="w-6 h-6 text-gray-800" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                    <svg className="w-6 h-6 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
                     </svg>
                   ) : (
-                    <svg className="w-6 h-6 text-gray-800 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"/>
+                    <svg className="w-6 h-6 text-gray-900 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
                     </svg>
                   )}
                 </button>

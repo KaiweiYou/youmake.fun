@@ -9,83 +9,102 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const WordCloud = dynamic(() => import('./components/features/WordCloud').then(mod => mod.default), { ssr: false });
 
+import { getFeaturedProjects } from '../data/projects';
+import Link from 'next/link';
+
 // 作品集幻灯片组件
 const PortfolioSlideshow = () => {
-  // 支持图片和视频的作品集 - 使用现有图片作为占位符
-  const items = [
-    { type: 'image', src: '/images/interactive_art.png' },
-    { type: 'image', src: '/images/music_visualization.png' },
-    { type: 'image', src: '/images/coding_art.png' },
-  ];
+  const items = getFeaturedProjects();
   const [current, setCurrent] = useState(0);
   const prev = () => setCurrent((current - 1 + items.length) % items.length);
   const next = () => setCurrent((current + 1) % items.length);
 
   return (
     <div className="w-full flex flex-col items-center my-16">
-      <div className="relative w-full max-w-5xl">
-        <div className="h-[500px] flex items-center justify-center bg-gray-200 dark:bg-gray-700 rounded-2xl overflow-hidden shadow-2xl relative">
-          {/* 幻灯片内容 */}
+      <div className="relative w-full max-w-5xl px-4">
+        <div className="h-[500px] flex items-center justify-center bg-gray-100 dark:bg-gray-800 rounded-3xl overflow-hidden shadow-2xl relative group">
           {items.map((item, idx) => (
             <div
-              key={idx}
-              className={`absolute inset-0 w-full h-full flex items-center justify-center transition-opacity duration-700 ease-in-out ${idx === current ? 'opacity-100' : 'opacity-0'
+              key={item.slug}
+              className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out ${idx === current ? 'opacity-100' : 'opacity-0 pointer-events-none'
                 }`}
             >
-              {item.type === 'image' ? (
+              {/* Image Container */}
+              <div className="relative w-full h-full">
                 <Image
-                  src={item.src}
-                  alt={`作品${idx + 1}`}
+                  src={item.coverImage}
+                  alt={item.title}
                   fill
-                  className="object-contain"
-                  style={{ objectFit: 'contain' }}
-                  sizes="(max-width: 1200px) 100vw, 1200px"
-                  priority={idx === 0} // 优先加载第一张图
+                  className="object-cover"
+                  priority={idx === 0}
                 />
-              ) : (
-                <video
-                  src={item.src}
-                  controls
-                  className="object-contain w-full h-full"
-                  style={{ maxHeight: '100%', maxWidth: '100%', background: 'black' }}
-                />
-              )}
+
+                {/* Gradient Overlay for Text Readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                {/* Content Overlay */}
+                <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 text-white">
+                  <div className={`transform transition-all duration-700 delay-100 ${idx === current ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-medium uppercase tracking-wider border border-white/10">
+                        {item.category.replace('-', ' ')}
+                      </span>
+                      <span className="text-gray-300 text-sm">{item.date}</span>
+                    </div>
+                    <h2 className="text-3xl md:text-5xl font-bold mb-4">{item.title}</h2>
+                    <p className="max-w-2xl text-lg text-gray-200 mb-8 line-clamp-2 md:line-clamp-none">
+                      {item.description}
+                    </p>
+                    <Link
+                      href={`/${item.category}/${item.slug}`}
+                      className="inline-flex items-center px-6 py-3 bg-white text-black rounded-full font-bold hover:bg-gray-200 transition-colors"
+                    >
+                      View Project
+                      <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
+
+          {/* Controls - Only show if more than 1 item */}
+          {items.length > 1 && (
+            <>
+              <button
+                onClick={prev}
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full p-3 text-white transition-all z-20"
+                aria-label="Previous slide"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+              </button>
+              <button
+                onClick={next}
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full p-3 text-white transition-all z-20"
+                aria-label="Next slide"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+              </button>
+            </>
+          )}
         </div>
-        {/* 左右切换按钮，放在图片区域外面 */}
-        <button
-          onClick={prev}
-          className="hidden md:flex items-center justify-center absolute left-0 -translate-x-20 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 rounded-full p-3 opacity-50 hover:opacity-100 hover:scale-125 transition-all duration-300 z-20 shadow-lg"
-          style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}
-        >
-          <svg className="w-10 h-10 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
-        </button>
-        <button
-          onClick={next}
-          className="hidden md:flex items-center justify-center absolute right-0 translate-x-20 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 rounded-full p-3 opacity-50 hover:opacity-100 hover:scale-125 transition-all duration-300 z-20 shadow-lg"
-          style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}
-        >
-          <svg className="w-10 h-10 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
-        </button>
-        {/* 移动端按钮，依然在图片内侧 */}
-        <button
-          onClick={prev}
-          className="md:hidden absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 rounded-full p-3 opacity-50 hover:opacity-100 hover:scale-125 transition-all duration-300 z-20 shadow-lg"
-        >
-          <svg className="w-8 h-8 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
-        </button>
-        <button
-          onClick={next}
-          className="md:hidden absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 rounded-full p-3 opacity-50 hover:opacity-100 hover:scale-125 transition-all duration-300 z-20 shadow-lg"
-        >
-          <svg className="w-8 h-8 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
-        </button>
-        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 flex space-x-3">
-          {items.map((_, idx) => (
-            <span key={idx} className={`inline-block w-4 h-4 rounded-full ${idx === current ? 'bg-blue-500' : 'bg-gray-400 dark:bg-gray-600'} transition-all duration-300`}></span>
-          ))}
-        </div>
+
+        {/* Indicators */}
+        {items.length > 1 && (
+          <div className="flex justify-center space-x-3 mt-6">
+            {items.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrent(idx)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${idx === current
+                    ? 'bg-blue-600 w-8'
+                    : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
+                  }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
